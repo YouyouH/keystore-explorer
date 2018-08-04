@@ -57,7 +57,8 @@ import org.bouncycastle.asn1.DERTaggedObject;
 import org.bouncycastle.asn1.DERUTF8String;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x509.GeneralName;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
+import org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider;
 import org.bouncycastle.util.IPAddress;
 import org.kse.crypto.x509.GeneralNameUtil;
 import org.kse.gui.JEscDialog;
@@ -470,7 +471,7 @@ public class DGeneralNameChooser extends JEscDialog {
 	}
 
 	public static void main(String[] args) throws Exception {
-		Security.addProvider(new BouncyCastleProvider());
+		Security.addProvider(new BouncyCastleFipsProvider());
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		EventQueue.invokeLater(new Runnable() {
 			@Override

@@ -44,7 +44,8 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
+import org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider;
 import org.kse.crypto.CryptoException;
 import org.kse.crypto.KeyInfo;
 import org.kse.crypto.secretkey.SecretKeyType;
@@ -236,7 +237,7 @@ public class DViewSecretKey extends JEscDialog {
 	public static void main(String[] args) throws Exception {
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
-		Security.addProvider(new BouncyCastleProvider());
+		Security.addProvider(new BouncyCastleFipsProvider());
 		final SecretKey secretKey = SecretKeyUtil.generateSecretKey(SecretKeyType.AES, 256);
 
 		java.awt.EventQueue.invokeLater(new Runnable() {

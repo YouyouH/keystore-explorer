@@ -26,7 +26,6 @@ import java.security.interfaces.DSAPrivateKey;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-import org.bouncycastle.jce.provider.JDKDSAPrivateKey;
 import org.kse.crypto.CryptoException;
 import org.kse.crypto.Password;
 import org.kse.crypto.keystore.KeyStoreType;
@@ -367,7 +366,7 @@ public class KeyStoreState {
 		Key targetKey = targetState.getKeyStore().getKey(alias, password.toCharArray());
 
 		// JDKDSAPrivateKey has no equals method defined
-		if ((currentKey instanceof JDKDSAPrivateKey) || (targetKey instanceof JDKDSAPrivateKey)) {
+		if ((currentKey instanceof DSAPrivateKey) || (targetKey instanceof DSAPrivateKey)) {
 			DSAPrivateKey currentDsaKey = (DSAPrivateKey) currentKey;
 			DSAPrivateKey targetDsaKey = (DSAPrivateKey) targetKey;
 

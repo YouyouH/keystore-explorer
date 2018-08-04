@@ -54,7 +54,8 @@ import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
+import org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider;
 import org.kse.crypto.CryptoException;
 import org.kse.crypto.csr.CsrType;
 import org.kse.crypto.keypair.KeyPairType;
@@ -442,7 +443,7 @@ public class DGenerateCsr extends JEscDialog {
 
 	// for quick testing
 	public static void main(String[] args) throws Exception {
-		Security.addProvider(new BouncyCastleProvider());
+		Security.addProvider(new BouncyCastleFipsProvider());
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			@Override

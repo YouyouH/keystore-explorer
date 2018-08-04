@@ -31,7 +31,6 @@ import java.util.List;
 
 import org.bouncycastle.asn1.ASN1Encodable;
 import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
-import org.bouncycastle.jce.spec.ECNamedCurveSpec;
 import org.kse.crypto.keystore.KeyStoreType;
 import org.kse.version.JavaVersion;
 
@@ -71,12 +70,12 @@ public class EccUtil {
 
 		ECKey ecKey = (ECKey) key;
 		ECParameterSpec params = ecKey.getParams();
-		if (!(params instanceof ECNamedCurveSpec)) {
+		if (!(params instanceof ECParameterSpec)) {
 			return "";
 		}
 
-		ECNamedCurveSpec ecPrivateKeySpec = (ECNamedCurveSpec) params;
-		String namedCurve = ecPrivateKeySpec.getName();
+		ECParameterSpec ecPrivateKeySpec = (ECParameterSpec) params;
+		String namedCurve = ecPrivateKeySpec.toString();
 		return namedCurve;
 	}
 

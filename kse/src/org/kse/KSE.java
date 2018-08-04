@@ -38,7 +38,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import org.bouncycastle.asn1.x500.X500Name;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider;
 import org.kse.crypto.x509.KseX500NameStyle;
 import org.kse.gui.CreateApplicationGui;
 import org.kse.gui.CurrentDirectory;
@@ -193,7 +193,7 @@ public class KSE {
 	private static void initialiseSecurity()  {
 
 		// Add BouncyCastle provider
-		Security.addProvider(new BouncyCastleProvider());
+		Security.addProvider(new BouncyCastleFipsProvider());
 	}
 
 	/**

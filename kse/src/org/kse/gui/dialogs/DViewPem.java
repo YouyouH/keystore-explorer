@@ -56,7 +56,8 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import org.bouncycastle.asn1.x500.X500Name;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
+import org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 import org.bouncycastle.pkcs.jcajce.JcaPKCS10CertificationRequestBuilder;
@@ -390,7 +391,7 @@ public class DViewPem extends JEscDialog {
 
 	// for quick testing
 	public static void main(String[] args) throws Exception {
-		Security.addProvider(new BouncyCastleProvider());
+		Security.addProvider(new BouncyCastleFipsProvider());
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			@Override

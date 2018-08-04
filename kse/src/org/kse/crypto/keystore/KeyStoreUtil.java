@@ -19,9 +19,7 @@
  */
 package org.kse.crypto.keystore;
 
-import static org.kse.crypto.SecurityProvider.APPLE;
-import static org.kse.crypto.SecurityProvider.BOUNCY_CASTLE;
-import static org.kse.crypto.SecurityProvider.MS_CAPI;
+import static org.kse.crypto.SecurityProvider.*;
 import static org.kse.crypto.keypair.KeyPairType.EC;
 import static org.kse.crypto.keystore.KeyStoreType.BKS;
 import static org.kse.crypto.keystore.KeyStoreType.BKS_V1;
@@ -435,12 +433,12 @@ public final class KeyStoreUtil {
 	private static KeyStore getKeyStoreInstance(KeyStoreType keyStoreType) throws CryptoException {
 		try {
 			if (keyStoreType == BKS || keyStoreType == BKS_V1 || keyStoreType == UBER || keyStoreType == BCFKS) {
-				if (Security.getProvider(BOUNCY_CASTLE.jce()) == null) {
+				if (Security.getProvider(BOUNCY_CASTLE_FIPS.jce()) == null) {
 					throw new CryptoException(MessageFormat.format(res.getString("NoProvider.exception.message"),
-							BOUNCY_CASTLE.jce()));
+							BOUNCY_CASTLE_FIPS.jce()));
 				}
 
-				return KeyStore.getInstance(keyStoreType.jce(), BOUNCY_CASTLE.jce());
+				return KeyStore.getInstance(keyStoreType.jce(), BOUNCY_CASTLE_FIPS.jce());
 			} else {
 				return KeyStore.getInstance(keyStoreType.jce());
 			}
@@ -449,7 +447,7 @@ public final class KeyStoreUtil {
 					keyStoreType), ex);
 		} catch (NoSuchProviderException ex) {
 			throw new CryptoException(MessageFormat.format(res.getString("NoProvider.exception.message"),
-					BOUNCY_CASTLE.jce()));
+					BOUNCY_CASTLE_FIPS.jce()));
 		}
 	}
 

@@ -54,7 +54,8 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
+import org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider;
 import org.kse.gui.CurrentDirectory;
 import org.kse.gui.CursorUtil;
 import org.kse.gui.FileChooserFactory;
@@ -580,7 +581,7 @@ public class DExportCertificates extends JEscDialog {
 
 	// for quick testing
 	public static void main(String[] args) throws Exception {
-		Security.addProvider(new BouncyCastleProvider());
+		Security.addProvider(new BouncyCastleFipsProvider());
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			@Override

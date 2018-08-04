@@ -49,7 +49,8 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
+import org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider;
 import org.kse.crypto.CryptoException;
 import org.kse.crypto.KeyInfo;
 import org.kse.crypto.keypair.KeyPairUtil;
@@ -340,7 +341,7 @@ public class DViewPublicKey extends JEscDialog {
 
 	// for quick testing
 	public static void main(String[] args) throws Exception {
-		Security.addProvider(new BouncyCastleProvider());
+		Security.addProvider(new BouncyCastleFipsProvider());
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			@Override

@@ -22,6 +22,7 @@ package org.kse.crypto.secretkey;
 
 import static org.kse.crypto.KeyType.SYMMETRIC;
 import static org.kse.crypto.SecurityProvider.BOUNCY_CASTLE;
+import static org.kse.crypto.SecurityProvider.BOUNCY_CASTLE_FIPS;
 
 import java.security.GeneralSecurityException;
 import java.security.SecureRandom;
@@ -53,7 +54,7 @@ public class SecretKeyUtil {
 	 */
 	public static SecretKey generateSecretKey(SecretKeyType secretKeyType, int keySize) throws CryptoException {
 		try {
-			KeyGenerator keyGenerator = KeyGenerator.getInstance(secretKeyType.jce(), BOUNCY_CASTLE.jce());
+			KeyGenerator keyGenerator = KeyGenerator.getInstance(secretKeyType.jce(), BOUNCY_CASTLE_FIPS.jce());
 			keyGenerator.init(keySize, SecureRandom.getInstance("SHA1PRNG"));
 
 			return keyGenerator.generateKey();

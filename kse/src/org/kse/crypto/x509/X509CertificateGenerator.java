@@ -39,7 +39,8 @@ import org.bouncycastle.cert.CertIOException;
 import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
 import org.bouncycastle.cert.jcajce.JcaX509v1CertificateBuilder;
 import org.bouncycastle.cert.jcajce.JcaX509v3CertificateBuilder;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
+import org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider;
 import org.bouncycastle.operator.ContentSigner;
 import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
@@ -90,7 +91,7 @@ public class X509CertificateGenerator {
 	public X509Certificate generate(X500Name subject, X500Name issuer, Date validityStart, Date validityEnd, PublicKey publicKey,
 			PrivateKey privateKey, SignatureType signatureType, BigInteger serialNumber) throws CryptoException {
 		return generate(subject, issuer, validityStart, validityEnd, publicKey, privateKey, signatureType, serialNumber, null,
-				new BouncyCastleProvider());
+				new BouncyCastleFipsProvider());
 	}
 
 	/**
@@ -185,7 +186,7 @@ public class X509CertificateGenerator {
 	public X509Certificate generateSelfSigned(X500Name name, Date validityStart, Date validityEnd, PublicKey publicKey, PrivateKey privateKey,
 			SignatureType signatureType, BigInteger serialNumber) throws CryptoException {
 		return generateSelfSigned(name, validityStart, validityEnd, publicKey, privateKey, signatureType, serialNumber, null,
-				new BouncyCastleProvider());
+				new BouncyCastleFipsProvider());
 	}
 
 	/**

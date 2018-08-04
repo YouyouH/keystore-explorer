@@ -30,6 +30,9 @@ public enum SecurityProvider {
 	/** Bouncy Castle */
 	BOUNCY_CASTLE("BC"),
 
+	/** Bouncy Castle */
+	BOUNCY_CASTLE_FIPS("BCFIPS"),
+
 	/** Apple */
 	APPLE("Apple"),
 

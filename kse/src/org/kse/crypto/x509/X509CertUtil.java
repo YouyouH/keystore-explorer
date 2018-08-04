@@ -19,7 +19,7 @@
  */
 package org.kse.crypto.x509;
 
-import static org.kse.crypto.SecurityProvider.BOUNCY_CASTLE;
+import static org.kse.crypto.SecurityProvider.BOUNCY_CASTLE_FIPS;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -100,7 +100,7 @@ public final class X509CertUtil {
 
 			is = new ByteArrayInputStream(certsBytes);
 
-			CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE, BOUNCY_CASTLE.jce());
+			CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE, BOUNCY_CASTLE_FIPS.jce());
 
 			Collection<? extends Certificate> certs = cf.generateCertificates(is);
 
@@ -131,7 +131,7 @@ public final class X509CertUtil {
 
 	private static X509Certificate[] loadCertificatesPkiPath(InputStream is) throws CryptoException {
 		try {
-			CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE, BOUNCY_CASTLE.jce());
+			CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE, BOUNCY_CASTLE_FIPS.jce());
 			CertPath certPath = cf.generateCertPath(is, PKI_PATH_ENCODING);
 
 			List<? extends Certificate> certs = certPath.getCertificates();
@@ -283,7 +283,7 @@ public final class X509CertUtil {
 	 */
 	public static X509Certificate convertCertificate(Certificate certIn) throws CryptoException {
 		try {
-			CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE, BOUNCY_CASTLE.jce());
+			CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE, BOUNCY_CASTLE_FIPS.jce());
 			ByteArrayInputStream bais = new ByteArrayInputStream(certIn.getEncoded());
 			return (X509Certificate) cf.generateCertificate(bais);
 		} catch (CertificateException | NoSuchProviderException e) {
@@ -439,7 +439,7 @@ public final class X509CertUtil {
 
 			Collections.addAll(encodedCerts, certs);
 
-			CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE, BOUNCY_CASTLE.jce());
+			CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE, BOUNCY_CASTLE_FIPS.jce());
 
 			CertPath cp = cf.generateCertPath(encodedCerts);
 
@@ -504,7 +504,7 @@ public final class X509CertUtil {
 
 			Collections.addAll(encodedCerts, certs);
 
-			CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE, BOUNCY_CASTLE.jce());
+			CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE, BOUNCY_CASTLE_FIPS.jce());
 
 			CertPath cp = cf.generateCertPath(encodedCerts);
 

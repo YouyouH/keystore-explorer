@@ -49,7 +49,8 @@ import org.bouncycastle.asn1.x509.ExtendedKeyUsage;
 import org.bouncycastle.asn1.x509.KeyPurposeId;
 import org.bouncycastle.asn1.x509.KeyUsage;
 import org.bouncycastle.asn1.x509.SubjectKeyIdentifier;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider;
+
 import org.kse.crypto.CryptoException;
 import org.kse.crypto.keypair.KeyPairType;
 import org.kse.crypto.keypair.KeyPairUtil;
@@ -266,8 +267,8 @@ public class DSelectStdCertTemplate extends JEscDialog {
 	// for quick UI testing
 	public static void main(String[] args) throws Exception {
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		final KeyPair issuerKP = KeyPairUtil.generateKeyPair(KeyPairType.RSA, 1024, new BouncyCastleProvider());
-		final KeyPair subjectKP = KeyPairUtil.generateKeyPair(KeyPairType.RSA, 1024, new BouncyCastleProvider());
+		final KeyPair issuerKP = KeyPairUtil.generateKeyPair(KeyPairType.RSA, 1024, new BouncyCastleFipsProvider());
+		final KeyPair subjectKP = KeyPairUtil.generateKeyPair(KeyPairType.RSA, 1024, new BouncyCastleFipsProvider());
 
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			@Override

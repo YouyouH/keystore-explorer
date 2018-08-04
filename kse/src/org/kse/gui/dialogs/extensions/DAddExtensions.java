@@ -70,7 +70,8 @@ import javax.swing.table.TableRowSorter;
 
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.bouncycastle.asn1.x500.X500Name;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
+import org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider;
 import org.kse.crypto.keypair.KeyPairType;
 import org.kse.crypto.keypair.KeyPairUtil;
 import org.kse.crypto.x509.X509ExtensionSet;
@@ -935,7 +936,7 @@ public class DAddExtensions extends JEscDialog {
 	// for quick UI testing
 	public static void main(String[] args) throws Exception {
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		final KeyPair keyPair = KeyPairUtil.generateKeyPair(KeyPairType.RSA, 1024, new BouncyCastleProvider());
+		final KeyPair keyPair = KeyPairUtil.generateKeyPair(KeyPairType.RSA, 1024, new BouncyCastleFipsProvider());
 
 		java.awt.EventQueue.invokeLater(new Runnable() {
 

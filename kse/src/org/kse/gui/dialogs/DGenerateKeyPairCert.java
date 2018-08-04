@@ -64,7 +64,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import org.bouncycastle.asn1.x500.X500Name;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
+import org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider;
 import org.kse.crypto.CryptoException;
 import org.kse.crypto.keypair.KeyPairType;
 import org.kse.crypto.signing.SignatureType;
@@ -490,7 +491,7 @@ public class DGenerateKeyPairCert extends JEscDialog {
 
 	// for quick testing
 	public static void main(String[] args) throws Exception {
-		Security.addProvider(new BouncyCastleProvider());
+		Security.addProvider(new BouncyCastleFipsProvider());
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			@Override
@@ -501,7 +502,7 @@ public class DGenerateKeyPairCert extends JEscDialog {
 					KeyPair keyPair = keyGen.genKeyPair();
 
 					DGenerateKeyPairCert dialog = new DGenerateKeyPairCert(new javax.swing.JFrame(), "test", keyPair, KeyPairType.RSA, null, null,
-							new BouncyCastleProvider());
+							new BouncyCastleFipsProvider());
 					dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 						@Override
 						public void windowClosing(java.awt.event.WindowEvent e) {

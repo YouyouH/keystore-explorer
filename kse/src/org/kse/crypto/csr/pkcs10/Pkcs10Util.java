@@ -42,7 +42,8 @@ import org.bouncycastle.asn1.DEROutputStream;
 import org.bouncycastle.asn1.DERUTF8String;
 import org.bouncycastle.asn1.x509.Certificate;
 import org.bouncycastle.asn1.x509.Extensions;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
+import org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider;
 import org.bouncycastle.operator.ContentSigner;
 import org.bouncycastle.operator.ContentVerifierProvider;
 import org.bouncycastle.operator.OperatorCreationException;
@@ -121,7 +122,7 @@ public class Pkcs10Util {
 
 			// fall back to bouncy castle provider if given provider does not support the requested algorithm
 			if (provider != null && provider.getService("Signature", signatureType.jce()) == null) {
-				provider = new BouncyCastleProvider();
+				provider = new BouncyCastleFipsProvider();
 			}
 
 			ContentSigner contentSigner = null;

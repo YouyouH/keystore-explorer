@@ -21,6 +21,7 @@ package org.kse.crypto.keypair;
 
 import static org.kse.crypto.KeyType.ASYMMETRIC;
 import static org.kse.crypto.SecurityProvider.BOUNCY_CASTLE;
+import static org.kse.crypto.SecurityProvider.BOUNCY_CASTLE_FIPS;
 import static org.kse.crypto.keypair.KeyPairType.DSA;
 import static org.kse.crypto.keypair.KeyPairType.EC;
 import static org.kse.crypto.keypair.KeyPairType.ECDSA;
@@ -61,11 +62,12 @@ import org.bouncycastle.asn1.ASN1String;
 import org.bouncycastle.asn1.x500.RDN;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x500.style.BCStyle;
+import org.bouncycastle.asn1.x9.ECNamedCurveTable;
 import org.bouncycastle.cert.X509CertificateHolder;
 import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
 import org.bouncycastle.cert.jcajce.JcaX509CertificateHolder;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.bouncycastle.jce.spec.ECNamedCurveSpec;
+
+import org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider;
 import org.kse.crypto.CryptoException;
 import org.kse.crypto.KeyInfo;
 import org.kse.crypto.keystore.KeyStoreUtil;
@@ -104,7 +106,7 @@ public final class KeyPairUtil {
 			} else {
 				// Always use BC provider for RSA
 				if (keyPairType == RSA) {
-					keyPairGen = KeyPairGenerator.getInstance(keyPairType.jce(), BOUNCY_CASTLE.jce());
+					keyPairGen = KeyPairGenerator.getInstance(keyPairType.jce(), BOUNCY_CASTLE_FIPS.jce());
 				} else {
 					// Use default provider for DSA
 					keyPairGen = KeyPairGenerator.getInstance(keyPairType.jce());
@@ -143,7 +145,7 @@ public final class KeyPairUtil {
 			if (provider != null) {
 				keyPairGen = KeyPairGenerator.getInstance(KeyPairType.EC.jce(), provider);
 			} else {
-				keyPairGen = KeyPairGenerator.getInstance(KeyPairType.EC.jce(), BOUNCY_CASTLE.jce());
+				keyPairGen = KeyPairGenerator.getInstance(KeyPairType.EC.jce(), BOUNCY_CASTLE_FIPS.jce());
 			}
 
 			keyPairGen.initialize(new ECGenParameterSpec(curveName), SecureRandom.getInstance("SHA1PRNG"));
@@ -216,7 +218,7 @@ public final class KeyPairUtil {
 			String algorithm = publicKey.getAlgorithm();
 
 			if (algorithm.equals(RSA.jce())) {
-				KeyFactory keyFact = KeyFactory.getInstance(algorithm, BOUNCY_CASTLE.jce());
+				KeyFactory keyFact = KeyFactory.getInstance(algorithm, BOUNCY_CASTLE_FIPS.jce());
 				RSAPublicKeySpec keySpec = keyFact.getKeySpec(publicKey, RSAPublicKeySpec.class);
 				BigInteger modulus = keySpec.getModulus();
 				BigInteger exponent = keySpec.getPublicExponent();
@@ -237,11 +239,7 @@ public final class KeyPairUtil {
 				ECPublicKey pubk = (ECPublicKey) publicKey;
 				ECParameterSpec spec = pubk.getParams();
 				int size = spec.getOrder().bitLength();
-				if (spec instanceof ECNamedCurveSpec) {
-					return new KeyInfo(ASYMMETRIC, algorithm, size, ((ECNamedCurveSpec) spec).getName());
-				} else {
-					return new KeyInfo(ASYMMETRIC, algorithm, size);
-				}
+				return new KeyInfo(ASYMMETRIC, algorithm, size);
 			}
 			return new KeyInfo(ASYMMETRIC, algorithm); // size unknown
 		} catch (GeneralSecurityException ex) {
@@ -282,11 +280,7 @@ public final class KeyPairUtil {
 				ECPrivateKey pubk = (ECPrivateKey) privateKey;
 				ECParameterSpec spec = pubk.getParams();
 				int size = spec.getOrder().bitLength();
-				if (spec instanceof ECNamedCurveSpec) {
-					return new KeyInfo(ASYMMETRIC, algorithm, size, ((ECNamedCurveSpec) spec).getName());
-				} else {
-					return new KeyInfo(ASYMMETRIC, algorithm, size);
-				}
+				return new KeyInfo(ASYMMETRIC, algorithm, size);
 			}
 
 			return new KeyInfo(ASYMMETRIC, algorithm); // size unknown
@@ -360,7 +354,7 @@ public final class KeyPairUtil {
 
 	private static byte[] sign(byte[] toSign, PrivateKey privateKey, String signatureAlgorithm)
 			throws GeneralSecurityException {
-		Signature signature = Signature.getInstance(signatureAlgorithm, new BouncyCastleProvider());
+		Signature signature = Signature.getInstance(signatureAlgorithm, new BouncyCastleFipsProvider());
 		signature.initSign(privateKey);
 		signature.update(toSign);
 		return signature.sign();
@@ -368,7 +362,7 @@ public final class KeyPairUtil {
 
 	private static boolean verify(byte[] signed, byte[] signaureToVerify, PublicKey publicKey, String signatureAlgorithm)
 			throws GeneralSecurityException {
-		Signature signature = Signature.getInstance(signatureAlgorithm, new BouncyCastleProvider());
+		Signature signature = Signature.getInstance(signatureAlgorithm, new BouncyCastleFipsProvider());
 		signature.initVerify(publicKey);
 		signature.update(signed);
 		return signature.verify(signaureToVerify);
